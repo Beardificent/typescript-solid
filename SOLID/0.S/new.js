@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var _this = this;
 var Car = /** @class */ (function () {
     function Car(MAXIMUM_FUEL_CAPACITY) {
         this._engineStatus = false;
@@ -96,3 +97,26 @@ var MusicPlayer = /** @class */ (function () {
     };
     return MusicPlayer;
 }());
+// When you see <cast>variable this is a "cast" of a variable, explicitly telling the code what the type of this variable will be.
+// This is sometimes needed when a default JS function does not return a precise enough Type.
+// I need to cast this to HtmlElement because the default Element return type is not specific to the HTML context (because some versions of JS can also be used in the backend, see node.js)
+// This makes it not having some properties like .innerText. Test it out yourself by removing the <HTMLElement>
+var musicToggleElement = document.querySelector('#music-toggle');
+var musicSliderElement = document.querySelector('#music-slider');
+var engineToggleElement = document.querySelector('#engine-toggle');
+var addFuelForm = document.querySelector('#add-fuel-form');
+var addFuelInput = document.querySelector('#add-fuel-input');
+var fuelLevelElement = document.querySelector('#fuel-level');
+var milesElement = document.querySelector('#miles-value');
+var audioElement = document.querySelector('#car-music');
+var car = new Car(100);
+musicToggleElement.addEventListener('click', function () {
+    if (_this.musicLevel === 0) {
+        _this.turnMusicOn();
+        musicSliderElement.value = _this.musicLevel.toString();
+        musicToggleElement.innerText = 'Turn music off';
+        return;
+    }
+    musicToggleElement.innerText = 'Turn music on';
+    _this.turnMusicOff();
+});

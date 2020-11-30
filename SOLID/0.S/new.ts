@@ -1,3 +1,4 @@
+
 class Car {
     private _engineStatus: boolean = false;
     private _fuel : number = 0;
@@ -54,11 +55,13 @@ class Car {
 
 class Engine extends Car{
 
+
 }
 
 class MusicPlayer {
     private _musicLevel : number = 0;
     private _oldMusicLevel : number = 50;
+
 
     //Take attention to these getter and setters
     get musicLevel(): number {
@@ -77,4 +80,34 @@ class MusicPlayer {
     turnMusicOff() {
         this._musicLevel = 0;
     }
+
+
 }
+
+
+
+// When you see <cast>variable this is a "cast" of a variable, explicitly telling the code what the type of this variable will be.
+// This is sometimes needed when a default JS function does not return a precise enough Type.
+// I need to cast this to HtmlElement because the default Element return type is not specific to the HTML context (because some versions of JS can also be used in the backend, see node.js)
+// This makes it not having some properties like .innerText. Test it out yourself by removing the <HTMLElement>
+const musicToggleElement = <HTMLElement>document.querySelector('#music-toggle');
+const musicSliderElement = <HTMLInputElement>document.querySelector('#music-slider');
+const engineToggleElement = <HTMLInputElement>document.querySelector('#engine-toggle');
+const addFuelForm = document.querySelector('#add-fuel-form');
+const addFuelInput = <HTMLFormElement>document.querySelector('#add-fuel-input');
+const fuelLevelElement = <HTMLElement>document.querySelector('#fuel-level');
+const milesElement = <HTMLElement>document.querySelector('#miles-value');
+const audioElement = <HTMLAudioElement>document.querySelector('#car-music');
+
+let car =  new Car(100);
+
+musicToggleElement.addEventListener('click', () => {
+    if(this.musicLevel === 0) {
+        this.turnMusicOn();
+        musicSliderElement.value = this.musicLevel.toString();
+        musicToggleElement.innerText = 'Turn music off';
+        return;
+    }
+    musicToggleElement.innerText = 'Turn music on';
+    this.turnMusicOff();
+});
